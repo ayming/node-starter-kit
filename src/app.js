@@ -1,7 +1,7 @@
 import express from 'express'
 import compression from 'compression'
 import bodyParser from 'body-parser'
-import PrettyError from 'pretty-error'
+import errors from './errors'
 
 const app = express()
 
@@ -10,16 +10,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
+  // throw new Error('Test Error')
   res.json({ message: 'Hello World!' })
 })
 
-const pe = new PrettyError()
-pe.skipNodeFiles()
-pe.skipPackage('express')
-
-app.use((err, req, res, next) => {
-  process.stderr.write(pe.render(err))
-  next()
-})
+app.use(
+  errors.handler({
+    pretty: process.env.NODE_ENV !== 'production',
+  }),
+)
 
 export default app

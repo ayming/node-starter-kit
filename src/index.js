@@ -1,11 +1,17 @@
 /* eslint-disable no-console */
 
+import env from 'dotenv-extended'
 import app from './app'
 // import redis from './redis'
-// import errors from './errors'
+import errors from './errors'
 
-const port = process.env.PORT || 3000
-const host = process.env.HOSTNAME || '0.0.0.0'
+// Environment config with respect to the schema
+env.load({
+  errorOnMissing: true,
+  errorOnExtra: true,
+})
+const port = process.env.PORT
+const host = process.env.HOSTNAME
 
 // Launch Node.js server
 const server = app.listen(port, host, () => {
@@ -13,7 +19,7 @@ const server = app.listen(port, host, () => {
 })
 
 // Shutdown Node.js app gracefully
-function handleExit(options /* , err */) {
+function handleExit(options, error) {
   if (options.cleanup) {
     const actions = [
       server.close,
@@ -29,7 +35,7 @@ function handleExit(options /* , err */) {
       }
     })
   }
-  // if (err) errors.report(err)
+  if (error) errors.report(error)
   if (options.exit) process.exit()
 }
 
