@@ -2,6 +2,7 @@ import express from 'express'
 import compression from 'compression'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
+import cors from 'cors'
 import errors from './errors'
 
 const app = express()
@@ -13,6 +14,9 @@ app.use(bodyParser.json())
 
 // secure apps by setting various HTTP headers
 app.use(helmet())
+
+// enable CORS - Cross Origin Resource Sharing
+app.use(cors())
 
 app.get('/', (req, res) => {
   // throw new Error('Test Error')
