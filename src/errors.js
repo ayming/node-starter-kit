@@ -1,21 +1,9 @@
-import PrettyError from 'pretty-error'
+import httpStatus from 'http-status'
 
 // TODO: Log the error to Google Stackdriver, Rollbar etc.
 function report(error) {
   // eslint-disable-next-line no-console
   console.error(error)
-}
-
-// Express error handler middleware
-function handler({ pretty }) {
-  const pe = new PrettyError()
-  pe.skipNodeFiles()
-  pe.skipPackage('express')
-
-  return (err, req, res, next) => {
-    if (pretty) process.stderr.write(pe.render(err))
-    next()
-  }
 }
 
 export class ValidationError extends Error {
@@ -40,13 +28,19 @@ export class ValidationError extends Error {
 export class UnauthorizedError extends Error {
   code = 401
 
-  message = this.message || 'Anonymous access is denied.'
+  message = this.message || httpStatus[401]
 }
 
 export class ForbiddenError extends Error {
   code = 403
 
-  message = this.message || 'Access is denied.'
+  message = this.message || httpStatus[403]
 }
 
-export default { report, handler }
+export class NotFoundError extends Error {
+  code = 404
+
+  message = this.message || httpStatus[404]
+}
+
+export default { report }
