@@ -1,4 +1,4 @@
-import express from 'express';
+import express from 'express'
 import compression from 'compression'
 import bodyParser from 'body-parser'
 import PrettyError from 'pretty-error'
