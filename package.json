@@ -51,6 +51,7 @@
     "serve": "node dist/index.js",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
     "lint:fix": "yarn lint --fix",
+    "security": "yarn audit",
     "precommit": "lint-staged"
   }
 }
