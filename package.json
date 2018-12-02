@@ -1,0 +1,31 @@
+{
+  "name": "node-starter-kit",
+  "version": "0.0.0",
+  "description": "Kick start nodejs project",
+  "main": "dist/index.js",
+  "repository": "https://github.com/ayming/node-starter-kit",
+  "author": "ayming",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.11.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "eslint": "^5.9.0",
+    "nodemon": "^1.18.7"
+  },
+  "scripts": {
+    "start": "babel-node src/index.js",
+    "dev": "nodemon --exec babel-node src/index.js",
+    "build": "babel src --out-dir dist",
+    "serve": "node dist/index.js"
+  }
+}
